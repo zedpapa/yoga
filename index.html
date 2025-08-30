@@ -35,20 +35,25 @@
                     <input type="text" id="traditions">
                 </div>
                 <div class="form-group">
-                    <label for="card-color">Card Color:</label>
-                    <input type="color" id="card-color" value="#4a6fa5">
+                    <label>Card Color:</label>
+                    <div id="color-palette">
+                        <div class="color-swatch active" data-color="#d1a3a4" style="background-color: #d1a3a4;"></div>
+                        <div class="color-swatch" data-color="#d4b9a3" style="background-color: #d4b9a3;"></div>
+                        <div class="color-swatch" data-color="#e8d5a3" style="background-color: #e8d5a3;"></div>
+                        <div class="color-swatch" data-color="#a3d1b8" style="background-color: #a3d1b8;"></div>
+                        <div class="color-swatch" data-color="#a3c1d1" style="background-color: #a3c1d1;"></div>
+                        <div class="color-swatch" data-color="#b8a3d1" style="background-color: #b8a3d1;"></div>
+                        <div class="color-swatch" data-color="#c94c4c" style="background-color: #c94c4c;"></div>
+                        <div class="color-swatch" data-color="#e59a64" style="background-color: #e59a64;"></div>
+                        <div class="color-swatch" data-color="#f0c987" style="background-color: #f0c987;"></div>
+                        <div class="color-swatch" data-color="#73a580" style="background-color: #73a580;"></div>
+                        <div class="color-swatch" data-color="#5a98b1" style="background-color: #5a98b1;"></div>
+                        <div class="color-swatch" data-color="#8f6da8" style="background-color: #8f6da8;"></div>
+                    </div>
+                    <input type="hidden" id="card-color-hidden" value="#d1a3a4">
                 </div>
                 <button type="submit">Create Card</button>
             </form>
-        </section>
-        <section id="card-grid-container">
-            <h2>Your Asana Cards</h2>
-            <div class="sort-container">
-                <button id="sort-by-color-btn">Sort by Color</button>
-            </div>
-            <div id="card-grid">
-                <!-- Asana cards will be displayed here -->
-            </div>
         </section>
         <section id="flow-container">
             <h2>Practice Flows</h2>
@@ -71,7 +76,17 @@
                 <!-- Saved flows will be displayed here -->
             </div>
         </section>
+        <section id="card-grid-container">
+            <h2>Your Asana Cards</h2>
+            <div class="sort-container">
+                <button id="sort-by-color-btn">Sort by Color</button>
+            </div>
+            <div id="card-grid">
+                <!-- Asana cards will be displayed here -->
+            </div>
+        </section>
     </main>
+    <script src="initial-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

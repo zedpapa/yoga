@@ -20,12 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadData() {
+        const paletteColors = [
+            '#d1a3a4', '#d4b9a3', '#e8d5a3', '#a3d1b8', '#a3c1d1', '#b8a3d1',
+            '#c94c4c', '#e59a64', '#f0c987', '#73a580', '#5a98b1', '#8f6da8'
+        ];
         const savedCards = localStorage.getItem('yogaAppData_cards');
         const savedFlows = localStorage.getItem('yogaAppData_flows');
 
-        if (savedCards) {
+        if (savedCards && savedCards !== '{}' && savedCards !== 'null') {
             cardsData = JSON.parse(savedCards);
+        } else {
+            cardsData = {}; // Ensure it's a fresh object
+            initialAsanaData.forEach((asana, index) => {
+                const cardId = `card-initial-${index}`;
+                cardsData[cardId] = {
+                    id: cardId,
+                    name: asana.name,
+                    photoSrc: asana.photoSrc,
+                    bodyParts: asana.bodyParts,
+                    organs: asana.connectedOrgans,
+                    traditions: asana.traditions,
+                    color: paletteColors[index % paletteColors.length]
+                };
+            });
         }
+
         if (savedFlows) {
             flows = JSON.parse(savedFlows);
         }
@@ -123,6 +142,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners ---
 
+    const colorPalette = document.getElementById('color-palette');
+    colorPalette.addEventListener('click', (e) => {
+        if (e.target.classList.contains('color-swatch')) {
+            // Remove active class from previous swatch
+            const currentActive = colorPalette.querySelector('.active');
+            if (currentActive) {
+                currentActive.classList.remove('active');
+            }
+            // Add active class to clicked swatch
+            const newActive = e.target;
+            newActive.classList.add('active');
+            // Update hidden input
+            document.getElementById('card-color-hidden').value = newActive.dataset.color;
+        }
+    });
+
     newCardForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -131,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const bodyParts = document.getElementById('body-parts').value;
         const organs = document.getElementById('organs').value;
         const traditions = document.getElementById('traditions').value;
-        const cardColor = document.getElementById('card-color').value;
+        const cardColor = document.getElementById('card-color-hidden').value;
 
         const photo = photoInput.files[0];
         const reader = new FileReader();

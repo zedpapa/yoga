@@ -105,6 +105,30 @@ h2 {
     box-sizing: border-box; /* To prevent padding from adding to width */
 }
 
+#color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.color-swatch {
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.color-swatch:hover {
+    border-color: #ccc;
+}
+
+.color-swatch.active {
+    border-color: #4a6fa5;
+    box-shadow: 0 0 5px rgba(74, 111, 165, 0.5);
+}
+
 button {
     background-color: #4a6fa5;
     color: white;
