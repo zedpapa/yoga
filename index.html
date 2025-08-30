@@ -34,7 +34,6 @@
                 <h2>Practice Flows</h2>
                 <div id="flow-display">
                     <h3>Your Saved Flows</h3>
-                    <!-- Saved flows will be displayed here -->
                 </div>
                 <div id="flow-creator">
                     <h3>Create a New Flow</h3>
@@ -54,12 +53,9 @@
             <section id="card-grid-container">
                 <div class="grid-header">
                     <h2>Library</h2>
-                    <div class="sort-container">
-                        <button id="sort-by-color-btn">Sort by Color</button>
-                    </div>
                 </div>
                 <div id="card-grid">
-                    <!-- Asana cards will be displayed here -->
+                    <!-- Cards will be displayed here -->
                 </div>
             </section>
             <section id="card-creator-container">
@@ -78,30 +74,12 @@
                         <input type="text" id="body-parts">
                     </div>
                     <div class="form-group">
-                        <label for="organs">Connected Organs:</label>
-                        <input type="text" id="organs">
+                        <label for="connected-organs">Connected Organs:</label>
+                        <input type="text" id="connected-organs">
                     </div>
                     <div class="form-group">
-                        <label for="traditions">Labels (comma-separated):</label>
-                        <input type="text" id="traditions">
-                    </div>
-                    <div class="form-group">
-                        <label>Card Color:</label>
-                        <div id="color-palette" class="color-palette-container">
-                            <div class="color-swatch active" data-color="#d1a3a4" style="background-color: #d1a3a4;"></div>
-                            <div class="color-swatch" data-color="#d4b9a3" style="background-color: #d4b9a3;"></div>
-                            <div class="color-swatch" data-color="#e8d5a3" style="background-color: #e8d5a3;"></div>
-                            <div class="color-swatch" data-color="#a3d1b8" style="background-color: #a3d1b8;"></div>
-                            <div class="color-swatch" data-color="#a3c1d1" style="background-color: #a3c1d1;"></div>
-                            <div class="color-swatch" data-color="#b8a3d1" style="background-color: #b8a3d1;"></div>
-                            <div class="color-swatch" data-color="#c94c4c" style="background-color: #c94c4c;"></div>
-                            <div class="color-swatch" data-color="#e59a64" style="background-color: #e59a64;"></div>
-                            <div class="color-swatch" data-color="#f0c987" style="background-color: #f0c987;"></div>
-                            <div class="color-swatch" data-color="#73a580" style="background-color: #73a580;"></div>
-                            <div class="color-swatch" data-color="#5a98b1" style="background-color: #5a98b1;"></div>
-                            <div class="color-swatch" data-color="#8f6da8" style="background-color: #8f6da8;"></div>
-                        </div>
-                        <input type="hidden" id="card-color-hidden" value="#d1a3a4">
+                        <label for="traditions-select">Label / Category:</label>
+                        <select id="traditions-select"></select>
                     </div>
                     <button type="submit">Create Card</button>
                 </form>
@@ -127,19 +105,12 @@
                     <input type="text" id="edit-body-parts">
                 </div>
                 <div class="form-group">
-                    <label for="edit-organs">Connected Organs:</label>
-                    <input type="text" id="edit-organs">
+                    <label for="edit-connected-organs">Connected Organs:</label>
+                    <input type="text" id="edit-connected-organs">
                 </div>
                 <div class="form-group">
-                    <label for="edit-traditions">Labels (comma-separated):</label>
-                    <input type="text" id="edit-traditions">
-                </div>
-                <div class="form-group">
-                    <label>Card Color:</label>
-                    <div id="edit-color-palette" class="color-palette-container">
-                        <!-- Color swatches will be added here via JS -->
-                    </div>
-                    <input type="hidden" id="edit-card-color-hidden">
+                    <label for="edit-traditions-select">Label / Category:</label>
+                    <select id="edit-traditions-select"></select>
                 </div>
                 <div class="form-actions">
                     <button type="submit">Save Changes</button>
@@ -151,9 +122,9 @@
 
     <script src="initial-data.js"></script>
     <script src="data-strength.js"></script>
+    <script src="data-pilates.js"></script>
     <script src="data-tai-chi.js"></script>
     <script src="data-nei-kung.js"></script>
-    <script src="data-pilates.js"></script>
     <script src="data-calisthenics.js"></script>
     <script src="data-mobility.js"></script>
     <script src="data-plyometrics.js"></script>

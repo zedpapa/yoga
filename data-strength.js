@@ -4,48 +4,48 @@ const initialStrengthData = [
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/bench-press-exercise.jpg",
     bodyParts: "Chest, Shoulders, Triceps",
     connectedOrgans: "",
-    traditions: "Strength Training, Powerlifting, Bodybuilding"
+    traditions: "Strength Training"
   },
   {
     name: "Barbell Squat",
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-squat-exercise.jpg",
     bodyParts: "Quadriceps, Glutes, Adductors, Calves, Core",
     connectedOrgans: "",
-    traditions: "Strength Training, Powerlifting, Weightlifting"
+    traditions: "Strength Training"
   },
   {
     name: "Barbell Deadlift",
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-deadlift-exercise.jpg",
     bodyParts: "Back, Glutes, Hamstrings, Quadriceps, Forearms",
     connectedOrgans: "",
-    traditions: "Strength Training, Powerlifting, Strongman"
+    traditions: "Powerlifting"
   },
   {
     name: "Overhead Press (Barbell)",
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-overhead-press-exercise.jpg",
     bodyParts: "Shoulders, Triceps, Trapezius",
     connectedOrgans: "",
-    traditions: "Strength Training, Weightlifting"
+    traditions: "Strength Training"
   },
   {
     name: "Barbell Row",
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-row-exercise.jpg",
     bodyParts: "Back, Biceps, Shoulders",
     connectedOrgans: "",
-    traditions: "Strength Training, Bodybuilding"
+    traditions: "Bodybuilding"
   },
   {
     name: "Pull-Up",
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/pull-up-exercise.jpg",
     bodyParts: "Back, Biceps, Forearms",
     connectedOrgans: "",
-    traditions: "Calisthenics, Strength Training"
+    traditions: "Calisthenics"
   },
   {
     name: "Dumbbell Curl",
     photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/dumbbell-curl-exercise.jpg",
     bodyParts: "Biceps",
     connectedOrgans: "",
-    traditions: "Bodybuilding, Strength Training"
+    traditions: "Bodybuilding"
   }
 ];
