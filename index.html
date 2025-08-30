@@ -11,6 +11,36 @@
         <h1>Yoga Asana Library</h1>
     </header>
     <main>
+        <section id="flow-container">
+            <h2>Practice Flows</h2>
+            <div id="flow-display">
+                <h3>Your Saved Flows</h3>
+                <!-- Saved flows will be displayed here -->
+            </div>
+            <div id="flow-creator">
+                <h3>Create a New Flow</h3>
+                <form id="new-flow-form">
+                    <div class="form-group">
+                        <label for="flow-name">Flow Name:</label>
+                        <input type="text" id="flow-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flow-description">Description:</label>
+                        <textarea id="flow-description" rows="3"></textarea>
+                    </div>
+                    <button type="submit">Create Flow</button>
+                </form>
+            </div>
+        </section>
+        <section id="card-grid-container">
+            <h2>Your Asana Cards</h2>
+            <div class="sort-container">
+                <button id="sort-by-color-btn">Sort by Color</button>
+            </div>
+            <div id="card-grid">
+                <!-- Asana cards will be displayed here -->
+            </div>
+        </section>
         <section id="card-creator-container">
             <h2>Create a New Asana Card</h2>
             <form id="new-card-form">
@@ -55,37 +85,48 @@
                 <button type="submit">Create Card</button>
             </form>
         </section>
-        <section id="flow-container">
-            <h2>Practice Flows</h2>
-            <div id="flow-creator">
-                <h3>Create a New Flow</h3>
-                <form id="new-flow-form">
-                    <div class="form-group">
-                        <label for="flow-name">Flow Name:</label>
-                        <input type="text" id="flow-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="flow-description">Description:</label>
-                        <textarea id="flow-description" rows="3"></textarea>
-                    </div>
-                    <button type="submit">Create Flow</button>
-                </form>
-            </div>
-            <div id="flow-display">
-                <h3>Your Saved Flows</h3>
-                <!-- Saved flows will be displayed here -->
-            </div>
-        </section>
-        <section id="card-grid-container">
-            <h2>Your Asana Cards</h2>
-            <div class="sort-container">
-                <button id="sort-by-color-btn">Sort by Color</button>
-            </div>
-            <div id="card-grid">
-                <!-- Asana cards will be displayed here -->
-            </div>
-        </section>
     </main>
+
+    <div id="edit-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Edit Asana Card</h2>
+            <form id="edit-card-form">
+                <input type="hidden" id="edit-card-id">
+                <div class="form-group">
+                    <label for="edit-asana-name">Asana Name:</label>
+                    <input type="text" id="edit-asana-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-asana-photo">New Photo (optional):</label>
+                    <input type="file" id="edit-asana-photo" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="edit-body-parts">Body Parts Targeted:</label>
+                    <input type="text" id="edit-body-parts">
+                </div>
+                <div class="form-group">
+                    <label for="edit-organs">Connected Organs:</label>
+                    <input type="text" id="edit-organs">
+                </div>
+                <div class="form-group">
+                    <label for="edit-traditions">Relevant Traditions:</label>
+                    <input type="text" id="edit-traditions">
+                </div>
+                <div class="form-group">
+                    <label>Card Color:</label>
+                    <div id="edit-color-palette" class="color-palette-container">
+                        <!-- Color swatches will be added here via JS -->
+                    </div>
+                    <input type="hidden" id="edit-card-color-hidden">
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Save Changes</button>
+                    <button type="button" id="cancel-edit-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="initial-data.js"></script>
     <script src="script.js"></script>
 </body>
