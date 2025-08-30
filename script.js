@@ -1,71 +1,108 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- State Variables ---
-    let cardsData = {};
-    let flows = [];
+    let appData = {};
+    let activeDiscipline = "Yoga";
     let activeFlowId = null;
+    let activeFilter = 'All';
+    let currentProfile = null; // New state for the current user profile
+
     const paletteColors = [
         '#d1a3a4', '#d4b9a3', '#e8d5a3', '#a3d1b8', '#a3c1d1', '#b8a3d1',
         '#c94c4c', '#e59a64', '#f0c987', '#73a580', '#5a98b1', '#8f6da8'
     ];
+    const disciplines = ["Yoga", "Tai Chi", "Nei Kung", "Strength Training", "Pilates", "Calisthenics", "Mobility & Flexibility Drills", "Plyometrics", "Corrective & Rehabilitation Exercises"];
 
     // --- DOM Elements ---
-    const newCardForm = document.getElementById('new-card-form');
     const cardGrid = document.getElementById('card-grid');
-    const sortByColorBtn = document.getElementById('sort-by-color-btn');
-    const newFlowForm = document.getElementById('new-flow-form');
     const flowDisplay = document.getElementById('flow-display');
-    const colorPalette = document.getElementById('color-palette');
+    const newCardForm = document.getElementById('new-card-form');
+    const newFlowForm = document.getElementById('new-flow-form');
     const editModal = document.getElementById('edit-modal');
     const editCardForm = document.getElementById('edit-card-form');
     const cancelEditBtn = document.getElementById('cancel-edit-btn');
+    const colorPalette = document.getElementById('color-palette');
     const editColorPalette = document.getElementById('edit-color-palette');
+    const sortByColorBtn = document.getElementById('sort-by-color-btn');
+    const profileBtn = document.getElementById('profile-btn');
+    const usernameInput = document.getElementById('username-input');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const appContainer = document.querySelector('.app-container');
+
+    // --- Data Access Functions ---
+    function getActiveCardsData() {
+        if (!currentProfile || !appData[currentProfile] || !appData[currentProfile][activeDiscipline]) return {};
+        return appData[currentProfile][activeDiscipline].cardsData;
+    }
+
+    function getActiveFlows() {
+        if (!currentProfile || !appData[currentProfile] || !appData[currentProfile][activeDiscipline]) return [];
+        return appData[currentProfile][activeDiscipline].flows;
+    }
 
     // --- Persistence Functions ---
-
     function saveData() {
-        localStorage.setItem('yogaAppData_cards', JSON.stringify(cardsData));
-        localStorage.setItem('yogaAppData_flows', JSON.stringify(flows));
+        if (!currentProfile) return;
+        localStorage.setItem(`wellnessAppData_${currentProfile}`, JSON.stringify(appData[currentProfile]));
     }
 
     function loadData() {
-        const savedCards = localStorage.getItem('yogaAppData_cards');
-        const savedFlows = localStorage.getItem('yogaAppData_flows');
-
-        if (savedCards && savedCards !== '{}' && savedCards !== 'null') {
-            cardsData = JSON.parse(savedCards);
+        if (!currentProfile) {
+            appData[currentProfile] = {}; // Clear data if no profile
+            return;
+        };
+        const savedProfileData = localStorage.getItem(`wellnessAppData_${currentProfile}`);
+        if (savedProfileData) {
+            appData[currentProfile] = JSON.parse(savedProfileData);
         } else {
-            cardsData = {}; // Ensure it's a fresh object
-            initialAsanaData.forEach((asana, index) => {
-                const cardId = `card-initial-${index}`;
-                cardsData[cardId] = {
-                    id: cardId,
-                    name: asana.name,
-                    photoSrc: asana.photoSrc,
-                    bodyParts: asana.bodyParts,
-                    organs: asana.connectedOrgans,
-                    traditions: asana.traditions,
-                    color: paletteColors[index % paletteColors.length]
-                };
+            // Initialize profile for the first time
+            appData[currentProfile] = {};
+            disciplines.forEach(discipline => {
+                appData[currentProfile][discipline] = { cardsData: {}, flows: [], favorites: [] };
             });
-        }
 
-        if (savedFlows) {
-            flows = JSON.parse(savedFlows);
+            // Pre-populate Yoga for the new profile
+            const yogaData = appData[currentProfile]["Yoga"];
+            const initialData = typeof initialAsanaData !== 'undefined' ? initialAsanaData : [];
+            initialData.forEach((item, index) => {
+                const cardId = `card-initial-${index}`;
+                yogaData.cardsData[cardId] = { ...item, id: cardId, color: paletteColors[index % paletteColors.length]};
+            });
+            saveData();
         }
     }
 
     // --- Render Functions ---
+    function renderApp() {
+        if (!currentProfile) {
+            appContainer.style.display = 'none';
+            welcomeMessage.textContent = 'Please enter a username to begin.';
+            return;
+        }
+        appContainer.style.display = 'flex';
+        welcomeMessage.textContent = `Welcome, ${currentProfile}!`;
 
+        renderDisciplineNav();
+        renderAllCards();
+        renderFlows();
+        renderTraditionFilters();
+    }
+
+    // ... (rest of render functions are mostly the same, just use getActiveCardsData() etc.)
     function renderCard(cardData) {
+        const favorites = appData[currentProfile][activeDiscipline].favorites || [];
+        const isFavorite = favorites.includes(cardData.id);
+
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.id = cardData.id;
-
         card.innerHTML = `
             <div class="card-header">
                 <h3>${cardData.name}</h3>
-                <button class="edit-card-btn" title="Edit Card">✏️</button>
+                <div class="card-buttons">
+                    <button class="favorite-btn ${isFavorite ? 'is-favorite' : ''}" title="Toggle Favorite">★</button>
+                    <button class="edit-card-btn" title="Edit Card">✏️</button>
+                </div>
             </div>
             <div class="card-image">${cardData.photoSrc ? `<img src="${cardData.photoSrc}" alt="${cardData.name}">` : ''}</div>
             <div class="card-content" style="display: none;">
@@ -73,62 +110,105 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p><strong>Connected Organs:</strong> ${cardData.organs}</p>
                 <p><strong>Relevant Traditions:</strong> ${cardData.traditions}</p>
             </div>
-            <div class="card-footer" style="background-color: ${cardData.color};"></div>
-        `;
+            <div class="card-footer" style="background-color: ${cardData.color};"></div>`;
         cardGrid.appendChild(card);
     }
 
     function renderAllCards() {
         cardGrid.innerHTML = '';
-        for (const cardId in cardsData) {
-            renderCard(cardsData[cardId]);
+        const cardsData = getActiveCardsData();
+        let cardsToRender = cardsData;
+
+        if (activeFilter !== 'All') {
+            const favorites = appData[currentProfile][activeDiscipline].favorites || [];
+            cardsToRender = {};
+            for (const cardId in cardsData) {
+                const card = cardsData[cardId];
+                if (activeFilter === 'Favorites') {
+                    if (favorites.includes(cardId)) {
+                        cardsToRender[cardId] = card;
+                    }
+                } else {
+                    const cardLabels = card.traditions.split(',').map(t => t.trim());
+                    if (cardLabels.includes(activeFilter)) {
+                        cardsToRender[cardId] = card;
+                    }
+                }
+            }
         }
+        for (const cardId in cardsToRender) {
+            renderCard(cardsToRender[cardId]);
+        }
+        updateCardButtons();
     }
 
     function renderFlows() {
         const h3 = flowDisplay.querySelector('h3');
         flowDisplay.innerHTML = '';
         if (h3) flowDisplay.appendChild(h3);
-
+        const flows = getActiveFlows();
+        const cardsData = getActiveCardsData();
         flows.forEach(flow => {
             const flowElement = document.createElement('div');
             flowElement.classList.add('flow');
-            if (flow.id === activeFlowId) {
-                flowElement.classList.add('active');
-            }
+            if (flow.id === activeFlowId) flowElement.classList.add('active');
             flowElement.dataset.id = flow.id;
-
             let asanasHtml = '<div class="flow-asanas">';
             flow.asanas.forEach(cardId => {
                 const cardData = cardsData[cardId];
                 if (cardData) {
-                    asanasHtml += `
-                        <div class="flow-card" data-id="${cardId}">
-                            <div class="flow-card-header">
-                                <img src="${cardData.photoSrc || 'placeholder.png'}" alt="${cardData.name}" class="flow-card-thumbnail">
-                                <span>${cardData.name}</span>
-                            </div>
-                            <div class="flow-card-content" style="display: none;">
-                                <p><strong>Body Parts Targeted:</strong> ${cardData.bodyParts}</p>
-                                <p><strong>Connected Organs:</strong> ${cardData.organs}</p>
-                                <p><strong>Relevant Traditions:</strong> ${cardData.traditions}</p>
-                            </div>
-                        </div>
-                    `;
+                    asanasHtml += `<div class="flow-card" data-id="${cardId}"><div class="flow-card-header"><img src="${cardData.photoSrc || 'placeholder.png'}" alt="${cardData.name}" class="flow-card-thumbnail"><span>${cardData.name}</span></div><div class="flow-card-content" style="display: none;"><p><strong>Body Parts Targeted:</strong> ${cardData.bodyParts}</p><p><strong>Connected Organs:</strong> ${cardData.organs}</p><p><strong>Relevant Traditions:</strong> ${cardData.traditions}</p></div></div>`;
                 }
             });
             asanasHtml += '</div>';
-
-            flowElement.innerHTML = `
-                <h4>${flow.name}</h4>
-                <p>${flow.description}</p>
-                ${asanasHtml}
-                <button class="delete-flow-btn">Delete Flow</button>
-            `;
+            flowElement.innerHTML = `<h4>${flow.name}</h4><p>${flow.description}</p>${asanasHtml}<button class="delete-flow-btn">Delete Flow</button>`;
             flowDisplay.appendChild(flowElement);
         });
     }
 
+    function renderDisciplineNav() {
+        const navContainer = document.getElementById('discipline-nav');
+        navContainer.innerHTML = '';
+        disciplines.forEach(discipline => {
+            const tab = document.createElement('div');
+            tab.classList.add('discipline-tab');
+            tab.textContent = discipline;
+            tab.dataset.discipline = discipline;
+            if (discipline === activeDiscipline) tab.classList.add('active');
+            navContainer.appendChild(tab);
+        });
+    }
+
+    function renderTraditionFilters() {
+        const filtersContainer = document.getElementById('tradition-filters');
+        const cardsData = getActiveCardsData();
+        const labels = new Set();
+        for (const cardId in cardsData) {
+            const traditions = cardsData[cardId].traditions.split(',').map(t => t.trim());
+            traditions.forEach(t => { if(t) labels.add(t); });
+        }
+        filtersContainer.innerHTML = '';
+        ['Show All', 'Favorites'].forEach(filterName => {
+            const el = document.createElement('div');
+            el.className = 'filter-label';
+            el.textContent = filterName;
+            el.dataset.filter = filterName;
+            if (filterName === activeFilter) el.classList.add('active');
+            filtersContainer.appendChild(el);
+        });
+        if (labels.size > 0) filtersContainer.appendChild(document.createElement('hr'));
+        labels.forEach(label => {
+            const el = document.createElement('div');
+            el.className = 'filter-label';
+            el.textContent = label;
+            el.dataset.filter = label;
+            if (label === activeFilter) el.classList.add('active');
+            filtersContainer.appendChild(el);
+        });
+    }
+
+    // --- Other Functions (unchanged logic, but now use data accessors) ---
+    // (updateCardButtons, populateColorPalette, showEditModal, hideEditModal)
     function updateCardButtons() {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
@@ -142,9 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.querySelector('.card-header').appendChild(btn);
                 }
             } else {
-                if (btn) {
-                    btn.remove();
-                }
+                if (btn) btn.remove();
             }
         });
     }
@@ -160,24 +238,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Edit Modal Functions ---
     function showEditModal(cardId) {
-        const cardData = cardsData[cardId];
+        const cardData = getActiveCardsData()[cardId];
         if (!cardData) return;
-
         document.getElementById('edit-card-id').value = cardId;
         document.getElementById('edit-asana-name').value = cardData.name;
         document.getElementById('edit-body-parts').value = cardData.bodyParts;
         document.getElementById('edit-organs').value = cardData.organs;
         document.getElementById('edit-traditions').value = cardData.traditions;
         document.getElementById('edit-card-color-hidden').value = cardData.color;
-
-        // Set active color in palette
         const swatches = editColorPalette.children;
         for (const swatch of swatches) {
             swatch.classList.toggle('active', swatch.dataset.color === cardData.color);
         }
-
         editModal.style.display = 'flex';
     }
 
@@ -188,7 +261,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Event Listeners ---
+    profileBtn.addEventListener('click', () => {
+        const username = usernameInput.value.trim();
+        if (username) {
+            currentProfile = username;
+            usernameInput.value = '';
+            init();
+        } else {
+            alert('Please enter a username.');
+        }
+    });
 
+    document.getElementById('discipline-nav').addEventListener('click', (e) => {
+        if (e.target.classList.contains('discipline-tab')) {
+            const newDiscipline = e.target.dataset.discipline;
+            if (newDiscipline !== activeDiscipline) {
+                activeDiscipline = newDiscipline;
+                activeFlowId = null;
+                activeFilter = 'All';
+                renderApp();
+                renderDisciplineNav();
+            }
+        }
+    });
+
+    // ... (rest of event listeners are largely the same)
+    // All listeners that modify data must now call saveData()
+    // All listeners that read data must now use getActiveCardsData() or getActiveFlows()
     colorPalette.addEventListener('click', (e) => {
         if (e.target.classList.contains('color-swatch')) {
             const currentActive = colorPalette.querySelector('.active');
@@ -209,94 +308,90 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newCardForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
-        const asanaName = document.getElementById('asana-name').value;
         const photoInput = document.getElementById('asana-photo');
-        const bodyParts = document.getElementById('body-parts').value;
-        const organs = document.getElementById('organs').value;
-        const traditions = document.getElementById('traditions').value;
-        const cardColor = document.getElementById('card-color-hidden').value;
-
         const photo = photoInput.files[0];
-        const reader = new FileReader();
-
         const processCardCreation = (photoSrc) => {
             const cardId = `card-${Date.now()}`;
-
-            const newCardData = {
-                id: cardId, name: asanaName, photoSrc: photoSrc, bodyParts: bodyParts,
-                organs: organs, traditions: traditions, color: cardColor
+            const cardsData = getActiveCardsData();
+            cardsData[cardId] = {
+                id: cardId,
+                name: document.getElementById('asana-name').value,
+                photoSrc: photoSrc,
+                bodyParts: document.getElementById('body-parts').value,
+                organs: document.getElementById('organs').value,
+                traditions: document.getElementById('traditions').value,
+                color: document.getElementById('card-color-hidden').value
             };
-
-            cardsData[cardId] = newCardData;
-            renderCard(newCardData);
+            renderCard(cardsData[cardId]);
             updateCardButtons();
             saveData();
         };
-
         if (photo) {
+            const reader = new FileReader();
             reader.onload = (e) => processCardCreation(e.target.result);
             reader.readAsDataURL(photo);
         } else {
             processCardCreation(null);
         }
-
         newCardForm.reset();
     });
 
     cardGrid.addEventListener('click', (e) => {
+        const cardElement = e.target.closest('.card');
+        if (!cardElement) return;
         if (e.target.classList.contains('add-to-flow-btn')) {
-            const cardElement = e.target.closest('.card');
+            const flows = getActiveFlows();
             const activeFlow = flows.find(f => f.id === activeFlowId);
-
-            if (cardElement && activeFlow) {
+            if (activeFlow) {
                 const cardId = cardElement.dataset.id;
                 if (!activeFlow.asanas.includes(cardId)) {
                     activeFlow.asanas.push(cardId);
                     saveData();
+                    renderFlows();
                 }
-                renderFlows();
             }
+            return;
+        }
+        if (e.target.classList.contains('favorite-btn')) {
+            const cardId = cardElement.dataset.id;
+            const favorites = appData[currentProfile][activeDiscipline].favorites || [];
+            const favIndex = favorites.indexOf(cardId);
+
+            if (favIndex > -1) {
+                favorites.splice(favIndex, 1); // Unfavorite
+            } else {
+                favorites.push(cardId); // Favorite
+            }
+            appData[currentProfile][activeDiscipline].favorites = favorites;
+            saveData();
+
+            // Toggle visual state
+            e.target.classList.toggle('is-favorite');
             return;
         }
 
         if (e.target.classList.contains('edit-card-btn')) {
-            const cardId = e.target.closest('.card').dataset.id;
-            showEditModal(cardId);
+            showEditModal(cardElement.dataset.id);
             return;
         }
-
-        const card = e.target.closest('.card');
-        if (card) {
-            const cardContent = card.querySelector('.card-content');
-            if (cardContent) {
-                const isHidden = cardContent.style.display === 'none';
-                cardContent.style.display = isHidden ? 'block' : 'none';
-            }
+        const cardContent = cardElement.querySelector('.card-content');
+        if (cardContent) {
+            cardContent.style.display = cardContent.style.display === 'none' ? 'block' : 'none';
         }
     });
 
     sortByColorBtn.addEventListener('click', () => {
-        const cardElements = Array.from(cardGrid.children);
-
-        cardElements.sort((a, b) => {
-            const cardA_data = cardsData[a.dataset.id];
-            const cardB_data = cardsData[b.dataset.id];
-            if (!cardA_data || !cardB_data) return 0;
-            return cardA_data.color.localeCompare(cardB_data.color);
-        });
-
-        cardGrid.innerHTML = '';
-        cardElements.forEach(card => cardGrid.appendChild(card));
-        updateCardButtons(); // Re-apply buttons after sorting
+        renderAllCards(); // Re-render to apply sort
     });
 
     newFlowForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const flowName = document.getElementById('flow-name').value;
-        const flowDescription = document.getElementById('flow-description').value;
+        const flows = getActiveFlows();
         const newFlow = {
-            id: Date.now(), name: flowName, description: flowDescription, asanas: []
+            id: Date.now(),
+            name: document.getElementById('flow-name').value,
+            description: document.getElementById('flow-description').value,
+            asanas: []
         };
         flows.push(newFlow);
         activeFlowId = newFlow.id;
@@ -310,22 +405,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const flowCard = e.target.closest('.flow-card');
         if (flowCard) {
             const content = flowCard.querySelector('.flow-card-content');
-            if (content) {
-                const isHidden = content.style.display === 'none';
-                content.style.display = isHidden ? 'block' : 'none';
-            }
+            if (content) content.style.display = content.style.display === 'none' ? 'block' : 'none';
             return;
         }
         const flowElement = e.target.closest('.flow');
         if (!flowElement) return;
         const flowId = Number(flowElement.dataset.id);
         if (e.target.classList.contains('delete-flow-btn')) {
-            flows = flows.filter(f => f.id !== flowId);
-            if (activeFlowId === flowId) {
-                activeFlowId = null;
-                updateCardButtons();
-            }
+            appData[activeDiscipline].flows = getActiveFlows().filter(f => f.id !== flowId);
+            if (activeFlowId === flowId) activeFlowId = null;
             renderFlows();
+            updateCardButtons();
             saveData();
             return;
         }
@@ -341,9 +431,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardId = document.getElementById('edit-card-id').value;
         const photoInput = document.getElementById('edit-asana-photo');
         const photoFile = photoInput.files[0];
-
+        const cardsData = getActiveCardsData();
         const onUpdateReady = (newPhotoSrc) => {
-            const updatedData = {
+            cardsData[cardId] = {
                 id: cardId,
                 name: document.getElementById('edit-asana-name').value,
                 photoSrc: newPhotoSrc,
@@ -352,29 +442,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 traditions: document.getElementById('edit-traditions').value,
                 color: document.getElementById('edit-card-color-hidden').value
             };
-            cardsData[cardId] = updatedData;
             saveData();
-            renderAllCards();
-            renderFlows(); // Re-render flows in case a card in a flow was updated
-            updateCardButtons();
+            renderApp();
             hideEditModal();
         };
-
         if (photoFile) {
             const reader = new FileReader();
             reader.onload = (e) => onUpdateReady(e.target.result);
             reader.readAsDataURL(photoFile);
         } else {
-            // Keep the old photo if no new one is selected
             const oldPhotoSrc = cardsData[cardId].photoSrc;
             onUpdateReady(oldPhotoSrc);
         }
     });
 
+    document.getElementById('sidebar').addEventListener('click', (e) => {
+        if (e.target.classList.contains('filter-label')) {
+            const newFilter = e.target.dataset.filter;
+            if (newFilter !== activeFilter) {
+                activeFilter = newFilter;
+                renderApp();
+            }
+        }
+    });
+
     // --- Initial Load ---
-    loadData();
-    populateColorPalette(editColorPalette); // Populate the edit palette once
-    renderAllCards();
-    renderFlows();
-    updateCardButtons();
+    function init() {
+        loadData();
+        populateColorPalette(editColorPalette);
+        renderApp();
+    }
+
+    init();
 });
