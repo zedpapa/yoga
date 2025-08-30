@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Asana Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Yoga Asana Library</h1>
+    </header>
+    <main>
+        <section id="card-creator-container">
+            <h2>Create a New Asana Card</h2>
+            <form id="new-card-form">
+                <div class="form-group">
+                    <label for="asana-name">Asana Name:</label>
+                    <input type="text" id="asana-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="asana-photo">Photo:</label>
+                    <input type="file" id="asana-photo" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="body-parts">Body Parts Targeted:</label>
+                    <input type="text" id="body-parts">
+                </div>
+                <div class="form-group">
+                    <label for="organs">Connected Organs:</label>
+                    <input type="text" id="organs">
+                </div>
+                <div class="form-group">
+                    <label for="traditions">Relevant Traditions:</label>
+                    <input type="text" id="traditions">
+                </div>
+                <div class="form-group">
+                    <label for="card-color">Card Color:</label>
+                    <input type="color" id="card-color" value="#4a6fa5">
+                </div>
+                <button type="submit">Create Card</button>
+            </form>
+        </section>
+        <section id="card-grid-container">
+            <h2>Your Asana Cards</h2>
+            <div class="sort-container">
+                <button id="sort-by-color-btn">Sort by Color</button>
+            </div>
+            <div id="card-grid">
+                <!-- Asana cards will be displayed here -->
+            </div>
+        </section>
+        <section id="flow-container">
+            <h2>Practice Flows</h2>
+            <div id="flow-creator">
+                <h3>Create a New Flow</h3>
+                <form id="new-flow-form">
+                    <div class="form-group">
+                        <label for="flow-name">Flow Name:</label>
+                        <input type="text" id="flow-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flow-description">Description:</label>
+                        <textarea id="flow-description" rows="3"></textarea>
+                    </div>
+                    <button type="submit">Create Flow</button>
+                </form>
+            </div>
+            <div id="flow-display">
+                <h3>Your Saved Flows</h3>
+                <!-- Saved flows will be displayed here -->
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
