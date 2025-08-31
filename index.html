@@ -198,88 +198,61 @@
     <script>
         // --- DATA ---
         const initialAsanaData = [
-          { name: "Easy Pose (Sukhasana)", photoSrc: "https://blog.saracrave.com.au/wp-content/uploads/2016/09/beginner-yoga-poses-Sukhasana.jpg", bodyParts: "Back, Knees, Ankles", connectedOrgans: "Brain", traditions: "Hatha, Seated Pose, Meditative" },
-          { name: "Staff Pose (Dandasana)", photoSrc: "https://blog.saracrave.com.au/wp-content/uploads/2016/09/beginner-yoga-poses-Dandasana.jpg", bodyParts: "Back, Shoulders, Chest", connectedOrgans: "", traditions: "Ashtanga, Hatha, Seated Pose" },
-          { name: "Cat Pose (Marjaryasana)", photoSrc: "https://blog.saracrave.com.au/wp-content/uploads/2016/09/beginner-yoga-poses-Marjaryasana.jpg", bodyParts: "Back, Neck, Torso, Spine", connectedOrgans: "Abdominal Organs", traditions: "Vinyasa, Warm-up" },
-          { name: "Downward Facing Dog (Adho Mukha Svanasana)", photoSrc: "https://blog.saracrave.com.au/wp-content/uploads/2016/09/beginner-yoga-poses-Adho-Mukha-Svanasana.jpg", bodyParts: "Arms, Legs, Shoulders, Hamstrings", connectedOrgans: "Brain", traditions: "Ashtanga, Inversion" }
+          { name: "Easy Pose (Sukhasana)", photoSrc: "https://i.imgur.com/p8fQJg5.jpeg", bodyParts: "Back, Knees, Ankles", connectedOrgans: "Brain", traditions: "Hatha, Seated Pose" },
+          { name: "Staff Pose (Dandasana)", photoSrc: "https://i.imgur.com/4n2k8xH.jpeg", bodyParts: "Back, Shoulders, Chest", traditions: "Ashtanga, Seated Pose" },
+          { name: "Cat Pose (Marjaryasana)", photoSrc: "https://i.imgur.com/sJr0t2e.jpeg", bodyParts: "Back, Neck, Torso, Spine", connectedOrgans: "Abdominal Organs", traditions: "Vinyasa, Warm-up" },
+          { name: "Downward Facing Dog (Adho Mukha Svanasana)", photoSrc: "https://i.imgur.com/gKqg3bU.jpeg", bodyParts: "Arms, Legs, Shoulders, Hamstrings", connectedOrgans: "Brain", traditions: "Ashtanga, Inversion" },
+          { name: "Warrior I (Virabhadrasana I)", photoSrc: "https://i.imgur.com/1ZfQf7B.jpeg", bodyParts: "Shoulders, Arms, Back, Thighs", traditions: "Ashtanga, Standing Pose" },
+          { name: "Warrior II (Virabhadrasana II)", photoSrc: "https://i.imgur.com/1ZfQf7B.jpeg", bodyParts: "Legs, Ankles, Groins, Chest", traditions: "Ashtanga, Standing Pose" },
+          { name: "Triangle Pose (Trikonasana)", photoSrc: "https://www.yogajournal.com/wp-content/uploads/2021/11/Triangle-Pose_Andrew-Clark_2400x1350.jpg", bodyParts: "Legs, Hips, Hamstrings, Shoulders", traditions: "Iyengar, Standing Pose" },
+          { name: "Cobra Pose (Bhujangasana)", photoSrc: "https://i.imgur.com/Y3pQf7B.jpeg", bodyParts: "Spine, Chest, Shoulders", connectedOrgans: "Abdominal Organs", traditions: "Hatha, Backbend" },
+          { name: "Bridge Pose (Setu Bandhasana)", photoSrc: "https://i.imgur.com/5b3vY7B.jpeg", bodyParts: "Spine, Chest, Neck", connectedOrgans: "Lungs, Thyroid", traditions: "Ashtanga, Backbend" },
+          { name: "Child's Pose (Balasana)", photoSrc: "https://i.imgur.com/sJr0t2e.jpeg", bodyParts: "Hips, Thighs, Ankles, Back", traditions: "Restorative" }
         ];
         const initialStrengthData = [
-          { name: "Barbell Bench Press", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/bench-press-exercise.jpg", bodyParts: "Chest, Shoulders, Triceps", connectedOrgans: "", traditions: "Strength Training, Bodybuilding" },
-          { name: "Barbell Squat", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-squat-exercise.jpg", bodyParts: "Quadriceps, Glutes, Adductors", connectedOrgans: "", traditions: "Strength Training, Powerlifting" }
+          { name: "Barbell Bench Press", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/bench-press-exercise.jpg", bodyParts: "Chest, Shoulders, Triceps", traditions: "Strength Training" },
+          { name: "Barbell Squat", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-squat-exercise.jpg", bodyParts: "Quadriceps, Glutes, Core", traditions: "Strength Training, Powerlifting" },
+          { name: "Deadlift", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-deadlift-exercise.jpg", bodyParts: "Back, Glutes, Hamstrings", traditions: "Powerlifting" },
+          { name: "Overhead Press", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/barbell-overhead-press-exercise.jpg", bodyParts: "Shoulders, Triceps", traditions: "Strength Training" },
+          { name: "Pull-Up", photoSrc: "https://www.strengthlog.com/wp-content/uploads/2022/11/pull-up-exercise.jpg", bodyParts: "Back, Biceps", traditions: "Calisthenics" }
         ];
         const initialPilatesData = [
-          { name: "The Hundred", photoSrc: "https://www.verywellfit.com/thmb/m9bS_6fJgS8sN2o0-9D7oB4T9sE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/82-3120194-The-Hundred-GIF-a588525b4282488496734a7457788414.gif", bodyParts: "Core, Abdominals, Lungs", connectedOrgans: "", traditions: "Pilates, Mat Work, Beginner" },
-          { name: "The Roll Up", photoSrc: "https://www.verywellfit.com/thmb/l2nS2z7sV3yO22Qc3jQ_xZ8j_4w=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Pilates-roll-up-56a73d333df78cf772935c15.jpg", bodyParts: "Abdominals, Spine", connectedOrgans: "", traditions: "Pilates, Mat Work, Beginner" }
+          { name: "The Hundred", photoSrc: "https://www.verywellfit.com/thmb/m9bS_6fJgS8sN2o0-9D7oB4T9sE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/82-3120194-The-Hundred-GIF-a588525b4282488496734a7457788414.gif", bodyParts: "Core, Abdominals", traditions: "Pilates, Mat Work" },
+          { name: "The Roll Up", photoSrc: "https://www.verywellfit.com/thmb/l2nS2z7sV3yO22Qc3jQ_xZ8j_4w=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Pilates-roll-up-56a73d333df78cf772935c15.jpg", bodyParts: "Abdominals, Spine", traditions: "Pilates, Mat Work" },
+          { name: "Single Leg Circles", photoSrc: "https://www.verywellfit.com/thmb/m-5w-7q-9z-8k-5k-9c-8k-7j-4w=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/one-leg-circle-56a73e673df78cf772935d8a.jpg", bodyParts: "Hips, Core", traditions: "Pilates, Mat Work" },
+          { name: "Rolling Like a Ball", photoSrc: "https://www.verywellfit.com/thmb/m-5w-7q-9z-8k-5k-9c-8k-7j-4w=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/rolling-like-a-ball-56a73e665f9b58b7d0e80778.jpg", bodyParts: "Spine, Abdominals", traditions: "Pilates, Mat Work" }
         ];
+        const initialTaiChiData = []; const initialNeiKungData = []; const initialCalisthenicsData = []; const initialMobilityData = []; const initialPlyometricsData = []; const initialRehabData = [];
 
         // --- SCRIPT ---
         document.addEventListener('DOMContentLoaded', () => {
-            // State Variables
-            let appData = {};
-            let activeDiscipline = "Yoga";
-            let activeFlowId = null;
-            let activeFilter = 'All';
-            let currentProfile = null;
-
-            const disciplines = ["Yoga", "Strength Training", "Pilates"]; // Simplified for this example
-            const categoryColorMap = {
-                "Yoga": "#5a98b1", "Hatha": "#5a98b1", "Ashtanga": "#5a98b1", "Vinyasa": "#5a98b1", "Restorative": "#a3d1b8", "Yin": "#a3d1b8",
-                "Strength Training": "#c94c4c", "Powerlifting": "#c94c4c", "Bodybuilding": "#c94c4c",
-                "Pilates": "#b8a3d1", "Mat Work": "#b8a3d1",
-                "Default": "#6c757d"
-            };
+            let appData = {}; let activeDiscipline = "Yoga"; let activeFlowId = null; let activeFilter = 'All'; let currentProfile = null;
+            const disciplines = ["Yoga", "Strength Training", "Pilates", "Tai Chi", "Nei Kung", "Calisthenics", "Mobility & Flexibility Drills", "Plyometrics", "Corrective & Rehabilitation Exercises"];
+            const categoryColorMap = { "Yoga": "#5a98b1", "Hatha": "#5a98b1", "Ashtanga": "#5a98b1", "Vinyasa": "#5a98b1", "Restorative": "#a3d1b8", "Yin": "#a3d1b8", "Seated Pose": "#5a98b1", "Standing Pose": "#5a98b1", "Backbend": "#5a98b1", "Twist": "#5a98b1", "Inversion": "#5a98b1", "Arm Balance": "#5a98b1", "Meditative": "#a3c1d1", "Foundational": "#73a580", "Core": "#e59a64", "Hip Opener": "#d1a3a4", "Strength Training": "#c94c4c", "Powerlifting": "#c94c4c", "Bodybuilding": "#c94c4c", "Pilates": "#b8a3d1", "Mat Work": "#b8a3d1", "Reformer": "#b8a3d1", "Calisthenics": "#e59a64", "Mobility & Flexibility Drills": "#a3c1d1", "Plyometrics": "#f0c987", "Corrective & Rehabilitation Exercises": "#73a580", "Tai Chi": "#d4b9a3", "Nei Kung": "#d1a3a4", "Default": "#6c757d" };
             const allLabels = [...new Set(Object.keys(categoryColorMap))];
-
-            // DOM Elements
-            const cardGrid = document.getElementById('card-grid');
-            const flowDisplay = document.getElementById('flow-display');
-            const newCardForm = document.getElementById('new-card-form');
-            const newFlowForm = document.getElementById('new-flow-form');
-            const editModal = document.getElementById('edit-modal');
-            const editCardForm = document.getElementById('edit-card-form');
-            const cancelEditBtn = document.getElementById('cancel-edit-btn');
-            const profileBtn = document.getElementById('profile-btn');
-            const usernameInput = document.getElementById('username-input');
-            const welcomeMessage = document.getElementById('welcome-message');
-            const appContainer = document.querySelector('.app-container');
-            const disciplineNav = document.getElementById('discipline-nav');
-            const traditionsSelect = document.getElementById('traditions-select');
-            const editTraditionsSelect = document.getElementById('edit-traditions-select');
-
-            // Data Access
+            const cardGrid = document.getElementById('card-grid'); const flowDisplay = document.getElementById('flow-display'); const newCardForm = document.getElementById('new-card-form'); const newFlowForm = document.getElementById('new-flow-form'); const editModal = document.getElementById('edit-modal'); const editCardForm = document.getElementById('edit-card-form'); const cancelEditBtn = document.getElementById('cancel-edit-btn'); const profileBtn = document.getElementById('profile-btn'); const usernameInput = document.getElementById('username-input'); const welcomeMessage = document.getElementById('welcome-message'); const appContainer = document.querySelector('.app-container'); const disciplineNav = document.getElementById('discipline-nav'); const sidebar = document.getElementById('sidebar'); const traditionsSelect = document.getElementById('traditions-select'); const editTraditionsSelect = document.getElementById('edit-traditions-select');
             function getActiveData() { return currentProfile && appData[currentProfile] ? appData[currentProfile][activeDiscipline] : null; }
-            function getActiveCardsData() { const d = getActiveData(); return d ? d.cardsData : {}; }
-            function getActiveFlows() { const d = getActiveData(); return d ? d.flows : []; }
-
-            // Persistence
             function saveData() { if (currentProfile) localStorage.setItem(`wellnessAppData_${currentProfile}`, JSON.stringify(appData[currentProfile])); }
             function loadData() {
                 if (!currentProfile) { appData = {}; return; }
                 const saved = localStorage.getItem(`wellnessAppData_${currentProfile}`);
-                if (saved) {
-                    appData[currentProfile] = JSON.parse(saved);
+                if (saved) { appData[currentProfile] = JSON.parse(saved);
                 } else {
                     appData[currentProfile] = {};
                     disciplines.forEach(d => { appData[currentProfile][d] = { cardsData: {}, flows: [], favorites: [] }; });
-                    const initialDataMap = { "Yoga": initialAsanaData, "Strength Training": initialStrengthData, "Pilates": initialPilatesData };
+                    const initialDataMap = { "Yoga": initialAsanaData, "Strength Training": initialStrengthData, "Pilates": initialPilatesData, "Tai Chi": initialTaiChiData, "Nei Kung": initialNeiKungData, "Calisthenics": initialCalisthenicsData, "Mobility & Flexibility Drills": initialMobilityData, "Plyometrics": initialPlyometricsData, "Corrective & Rehabilitation Exercises": initialRehabData };
                     for (const disc in initialDataMap) {
                         initialDataMap[disc].forEach((item, i) => {
-                            const id = `initial-${disc}-${i}`;
+                            const id = `initial-${disc.replace(/\s+/g, '-')}-${i}`;
                             const primaryLabel = item.traditions.split(',')[0].trim();
-                            appData[currentProfile][disc].cardsData[id] = { ...item, id, color: categoryColorMap[primaryLabel] || categoryColorMap.Default };
+                            appData[currentProfile][disc].cardsData[id] = { ...item, id, connectedOrgans: item.connectedOrgans || "", color: categoryColorMap[primaryLabel] || categoryColorMap.Default };
                         });
                     }
                     saveData();
                 }
             }
-
-            // Rendering
             function renderApp() {
-                if (!currentProfile) {
-                    appContainer.style.display = 'none';
-                    welcomeMessage.textContent = 'Please enter a username to begin.';
-                    return;
-                }
+                if (!currentProfile) { appContainer.style.display = 'none'; welcomeMessage.textContent = 'Please enter a username to begin.'; return; }
                 appContainer.style.display = 'flex';
                 welcomeMessage.textContent = `Welcome, ${currentProfile}!`;
                 renderDisciplineNav();
@@ -287,52 +260,28 @@
                 renderFlows();
                 renderTraditionFilters();
             }
-
             function renderCard(card) {
-                const activeData = getActiveData();
-                if (!activeData) return;
+                const activeData = getActiveData(); if (!activeData) return;
                 const isFav = activeData.favorites.includes(card.id);
-                const el = document.createElement('div');
-                el.className = 'card';
-                el.dataset.id = card.id;
-                el.innerHTML = `
-                    <div class="card-header">
-                        <h3>${card.name}</h3>
-                        <div class="card-buttons">
-                            <button class="favorite-btn ${isFav ? 'is-favorite' : ''}" title="Toggle Favorite">★</button>
-                            <button class="edit-card-btn" title="Edit Card">✏️</button>
-                        </div>
-                    </div>
-                    <div class="card-image">${card.photoSrc ? `<img src="${card.photoSrc}" alt="${card.name}">` : ''}</div>
-                    <div class="card-content" style="display: none;">
-                        <p><strong>Body Parts:</strong> ${card.bodyParts}</p>
-                        <p><strong>Organs:</strong> ${card.connectedOrgans}</p>
-                        <p><strong>Labels:</strong> ${card.traditions}</p>
-                    </div>
-                    <div class="card-footer" style="background-color: ${card.color};"></div>`;
+                const el = document.createElement('div'); el.className = 'card'; el.dataset.id = card.id;
+                el.innerHTML = `<div class="card-header"><h3>${card.name}</h3><div class="card-buttons"><button class="favorite-btn ${isFav ? 'is-favorite' : ''}" title="Toggle Favorite">★</button><button class="edit-card-btn" title="Edit Card">✏️</button></div></div><div class="card-image">${card.photoSrc ? `<img src="${card.photoSrc}" alt="${card.name}">` : ''}</div><div class="card-content" style="display: none;"><p><strong>Body Parts:</strong> ${card.bodyParts}</p><p><strong>Organs:</strong> ${card.connectedOrgans}</p><p><strong>Labels:</strong> ${card.traditions}</p></div><div class="card-footer" style="background-color: ${card.color};"></div>`;
                 cardGrid.appendChild(el);
             }
-
             function renderAllCards() {
                 cardGrid.innerHTML = '';
-                const activeData = getActiveData();
-                if (!activeData) return;
+                const activeData = getActiveData(); if (!activeData) return;
                 let toRender = activeData.cardsData;
                 if (activeFilter !== 'All') {
                     toRender = {};
                     for (const id in activeData.cardsData) {
                         const card = activeData.cardsData[id];
-                        if (activeFilter === 'Favorites' && activeData.favorites.includes(id)) {
-                            toRender[id] = card;
-                        } else if (card.traditions.split(',').map(t=>t.trim()).includes(activeFilter)) {
-                            toRender[id] = card;
-                        }
+                        if (activeFilter === 'Favorites' && activeData.favorites.includes(id)) { toRender[id] = card; }
+                        else if (card.traditions.split(',').map(t => t.trim()).includes(activeFilter)) { toRender[id] = card; }
                     }
                 }
                 for (const id in toRender) renderCard(toRender[id]);
                 updateCardButtons();
             }
-
             function renderFlows() {
                 const activeData = getActiveData();
                 const h3 = flowDisplay.querySelector('h3');
@@ -351,7 +300,6 @@
                     flowDisplay.appendChild(el);
                 });
             }
-
             function renderDisciplineNav() {
                 disciplineNav.innerHTML = '';
                 disciplines.forEach(d => {
@@ -362,14 +310,12 @@
                     disciplineNav.appendChild(tab);
                 });
             }
-
             function renderTraditionFilters() {
                 const filtersContainer = document.getElementById('tradition-filters');
-                const cards = getActiveCardsData();
+                const cardsData = getActiveCardsData();
+                if (!cardsData) { filtersContainer.innerHTML = ''; return; }
                 const labels = new Set();
-                for (const id in cards) {
-                    cards[id].traditions.split(',').map(t => t.trim()).forEach(l => { if (l) labels.add(l); });
-                }
+                for (const id in cardsData) { cardsData[id].traditions.split(',').map(t => t.trim()).forEach(l => { if (l) labels.add(l); }); }
                 filtersContainer.innerHTML = '';
                 ['Show All', 'Favorites'].forEach(f => {
                     const el = document.createElement('div');
@@ -387,7 +333,6 @@
                     filtersContainer.appendChild(el);
                 });
             }
-
             function updateCardButtons() {
                 document.querySelectorAll('.card').forEach(card => {
                     let btn = card.querySelector('.add-to-flow-btn');
@@ -403,7 +348,6 @@
                     }
                 });
             }
-
             function populateCategoryDropdowns() {
                 [traditionsSelect, editTraditionsSelect].forEach(sel => {
                     if (!sel) return;
@@ -418,7 +362,6 @@
                     });
                 });
             }
-
             function showEditModal(cardId) {
                 const card = getActiveCardsData()[cardId];
                 if (!card) return;
@@ -434,48 +377,29 @@
             // Event Listeners
             profileBtn.addEventListener('click', () => {
                 const username = usernameInput.value.trim();
-                if (username) {
-                    currentProfile = username;
-                    usernameInput.value = '';
-                    init();
-                }
+                if (username) { currentProfile = username; usernameInput.value = ''; init(); }
             });
-
             disciplineNav.addEventListener('click', e => {
                 if (e.target.classList.contains('discipline-tab')) {
                     const newDiscipline = e.target.dataset.discipline;
-                    if (newDiscipline !== activeDiscipline) {
-                        activeDiscipline = newDiscipline;
-                        activeFlowId = null;
-                        activeFilter = 'All';
-                        renderApp();
-                    }
+                    if (newDiscipline !== activeDiscipline) { activeDiscipline = newDiscipline; activeFlowId = null; activeFilter = 'All'; renderApp(); }
                 }
             });
-
             newCardForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const process = (photoSrc) => {
                     const cardId = `card-${Date.now()}`;
                     const cards = getActiveCardsData();
                     const category = traditionsSelect.value;
-                    cards[cardId] = {
-                        id: cardId,
-                        name: newCardForm.querySelector('#asana-name').value,
-                        photoSrc,
-                        bodyParts: newCardForm.querySelector('#body-parts').value,
-                        connectedOrgans: newCardForm.querySelector('#connected-organs').value,
-                        traditions: category,
-                        color: categoryColorMap[category] || categoryColorMap.Default
-                    };
+                    cards[cardId] = { id: cardId, name: newCardForm.querySelector('#asana-name').value, photoSrc, bodyParts: newCardForm.querySelector('#body-parts').value, connectedOrgans: newCardForm.querySelector('#connected-organs').value, traditions: category, color: categoryColorMap[category] || categoryColorMap.Default };
                     renderAllCards();
                     renderTraditionFilters();
                     saveData();
                 };
                 const photo = newCardForm.querySelector('#asana-photo').files[0];
-                if (photo) new FileReader().readAsDataURL(photo); else process(null);
+                if (photo) { const reader = new FileReader(); reader.onload = (e) => process(e.target.result); reader.readAsDataURL(photo); } else { process(null); }
+                newCardForm.reset();
             });
-
             editCardForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const cardId = editCardForm.querySelector('#edit-card-id').value;
@@ -483,21 +407,13 @@
                 const process = (photoSrc) => {
                     const cards = getActiveCardsData();
                     const category = editTraditionsSelect.value;
-                    cards[cardId] = { ...cards[cardId],
-                        name: editCardForm.querySelector('#edit-asana-name').value,
-                        photoSrc,
-                        bodyParts: editCardForm.querySelector('#edit-body-parts').value,
-                        connectedOrgans: editCardForm.querySelector('#edit-connected-organs').value,
-                        traditions: category,
-                        color: categoryColorMap[category] || categoryColorMap.Default
-                    };
+                    cards[cardId] = { ...cards[cardId], name: editCardForm.querySelector('#edit-asana-name').value, photoSrc, bodyParts: editCardForm.querySelector('#edit-body-parts').value, connectedOrgans: editCardForm.querySelector('#edit-connected-organs').value, traditions: category, color: categoryColorMap[category] || categoryColorMap.Default };
                     saveData();
                     renderApp();
                     hideEditModal();
                 };
-                if (photo) new FileReader().readAsDataURL(photo); else process(getActiveCardsData()[cardId].photoSrc);
+                if (photo) { const reader = new FileReader(); reader.onload = (e) => process(e.target.result); reader.readAsDataURL(photo); } else { process(getActiveCardsData()[cardId].photoSrc); }
             });
-
             cardGrid.addEventListener('click', e => {
                 const cardEl = e.target.closest('.card');
                 if (!cardEl) return;
@@ -517,7 +433,6 @@
                     if (content) content.style.display = content.style.display === 'none' ? 'block' : 'none';
                 }
             });
-
             newFlowForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const flows = getActiveFlows();
@@ -526,37 +441,34 @@
                 saveData();
                 newFlowForm.reset();
             });
-
             flowDisplay.addEventListener('click', e => {
                 const flowEl = e.target.closest('.flow');
                 if (e.target.classList.contains('delete-flow-btn')) {
                     getActiveData().flows = getActiveFlows().filter(f => f.id !== Number(flowEl.dataset.id));
                     if (activeFlowId === Number(flowEl.dataset.id)) activeFlowId = null;
-                    renderFlows();
-                    updateCardButtons();
-                    saveData();
+                    renderFlows(); updateCardButtons(); saveData();
                 } else if (flowEl) {
                     activeFlowId = Number(flowEl.dataset.id);
-                    renderFlows();
-                    updateCardButtons();
+                    renderFlows(); updateCardButtons();
                 } else if (e.target.closest('.flow-card')) {
                     const content = e.target.closest('.flow-card').querySelector('.flow-card-content');
                     if (content) content.style.display = content.style.display === 'none' ? 'block' : 'none';
                 }
             });
-
             sidebar.addEventListener('click', e => {
                 if (e.target.classList.contains('filter-label')) {
                     activeFilter = e.target.dataset.filter;
                     renderApp();
                 }
             });
-
             cancelEditBtn.addEventListener('click', hideEditModal);
 
             // Initial Load
             function init() {
-                populateCategoryDropdowns();
+                if(currentProfile) {
+                    loadData();
+                    populateCategoryDropdowns();
+                }
                 renderApp();
             }
             init();
